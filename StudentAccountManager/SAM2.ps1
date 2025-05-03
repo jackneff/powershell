@@ -69,8 +69,10 @@ function Get-ADUserAcct ($School,$StudentCN) {
 
 Function Get-StudentAccounts ($SchoolName) {
     
-    $Root="Ou=Students,OU=$SchoolName,Ou=Schools,DC=cs,DC=fcps,DC=org"
-    $Searcher = New-Object System.DirectoryServices.DirectorySearcher    $Searcher.Filter = "(objectCategory=User)"    $Searcher.SearchRoot = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$Root")
+    $Root="OU"
+    $Searcher = New-Object System.DirectoryServices.DirectorySearcher
+    $Searcher.Filter = "(objectCategory=User)"
+    $Searcher.SearchRoot = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$Root")
     $Searcher.SearchScope = "OneLevel"
     "CN" | ForEach-Object { $Searcher.PropertiesToLoad.Add($_) }
     $Results = $Searcher.FindAll()

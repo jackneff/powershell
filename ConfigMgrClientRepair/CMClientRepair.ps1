@@ -1,8 +1,11 @@
 ﻿
 $Script:Root = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
-#If script was not started as admin, restart it in escalated shell if(-not([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]"Administrator")){    Start-Process -File PowerShell.exe -Argument " -noprofile -file $($myinvocation.mycommand.definition)" -Verb Runas
-    Break   }
+#If script was not started as admin, restart it in escalated shell 
+if(-not([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]"Administrator")){
+    Start-Process -File PowerShell.exe -Argument " -noprofile -file $($myinvocation.mycommand.definition)" -Verb Runas
+    Break
+   }
 
 function MainMenu {
     Clear-Host
@@ -55,7 +58,7 @@ function Prompt{
 function Install-CMClient{
     Write-Host "Preparing to install CMClient"
     $Site = Get-SiteCode
-    $MP = "$($Site)sccm01.fcps.org"
+    $MP = "$($Site)"
     $CMD = & "$Script:Root\ccmsetup\ccmsetup.exe" /native /mp:$MP /smssitecode=$Site /noservice
     Write-Host "Installing CM client (MP=$($MP),SiteCode=$($Site))"
     & cmd.exe /c $CMD
@@ -167,13 +170,13 @@ function View-CCMSetupLogs{
 function Get-SiteCode{
     $Domain = Get-WmiObject -Class Win23_ComputerSystem | Select-Object -Expand Domain
     switch ($Domain){
-        "fcps.org"{
+        "company.com"{
             $SiteCode = 'cfm'
         }
-        "es.fcps.org"{
+        "es.company.com"{
             $SiteCode = 'esm'
         }
-        "hsms.fcps.org"{
+        "hsms.company.com"{
             if ($Computername -match "ms"){
                 $SiteCode = 'msm'
             } elseif ($Computername -match "hs"){

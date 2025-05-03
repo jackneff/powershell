@@ -41,7 +41,7 @@ $Btn_DeleteProfile = $UserInterFace.FindName('DeleteProfile')
 
 $Combo_SelectSchool.Add_SelectionChanged({
     $ListBox_Students.Items.Clear()
-    $BaseOU ='OU=Students,OU=$SchoolName,OU=Schools,DC=cs,DC=fcps,DC=org'
+    $BaseOU ='OU'
 
     $StudentAccts = Get-ADUser -SearchBase $BaseOU -SearchScope OneLevel -Filter * -Properties *
     $StudentAccts | ForEach-Object { $ListBox_Students.Items.Add($_.CN) | Out-Null }
@@ -96,8 +96,10 @@ function Main {
 
 Function Get-StudentAccounts ($SchoolName) {
     
-    $Root="Ou=Students,OU=$SchoolName,Ou=Schools,DC=cs,DC=fcps,DC=org"
-    $Searcher = New-Object System.DirectoryServices.DirectorySearcher    $Searcher.Filter = "(objectCategory=User)"    $Searcher.SearchRoot = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$Root")
+    $Root="OU"
+    $Searcher = New-Object System.DirectoryServices.DirectorySearcher
+    $Searcher.Filter = "(objectCategory=User)"
+    $Searcher.SearchRoot = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$Root")
     $Searcher.SearchScope = "OneLevel"
     "CN" | ForEach-Object { $Searcher.PropertiesToLoad.Add($_) }
     $Results = $Searcher.FindAll()

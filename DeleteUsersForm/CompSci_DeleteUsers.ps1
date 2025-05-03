@@ -85,7 +85,7 @@ $DataGrid1.HeaderForeColor = [System.Drawing.SystemColors]::ControlText
 $components = New-Object System.ComponentModel.Container
 #~~< ToolTip1 >~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $ToolTip1 = New-Object System.Windows.Forms.ToolTip($components)
-$ToolTip1.add_Popup({ToolTip1OnPopup($ToolTip1)})
+$ToolTip1.add_Popup({ ToolTip1OnPopup($ToolTip1) })
 $ToolTip1.SetToolTip($DataGrid1, "Hold CTRL button for multiple selection")
 #~~< Button1 >~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $Button1 = New-Object System.Windows.Forms.Button
@@ -108,7 +108,7 @@ $Form1.Controls.Add($Button1)
 
 #region Event Loop
 
-function Main{
+function Main {
 	[System.Windows.Forms.Application]::EnableVisualStyles()
 	[System.Windows.Forms.Application]::Run($Form1)
 }
@@ -119,7 +119,7 @@ function Main{
 
 #region Event Handlers
 
-function ToolTip1OnPopup( $object ){
+function ToolTip1OnPopup( $object ) {
 
 }
 
@@ -127,6 +127,6 @@ Main # This call must remain below all other event functions
 
 #endregion
 
-$schoolsOU = "OU=Schools,DC=cs,DC=fcps,DC=org"
-$schoolName = ""
-$studentsOU = "OU=Students,OU=$schoolName," + $schoolsOU   
+$schoolsOU = "OU"
+$schoolName = "Name"
+$studentsOU = "OU"   
