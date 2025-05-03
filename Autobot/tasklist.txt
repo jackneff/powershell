@@ -1,0 +1,20 @@
+hello
+menu
+tasks
+list tasks
+ping
+logged on user
+search user
+search computer
+get user computername
+user account info
+computer account info
+system info
+unlock account
+remove printer group
+add printer group
+force gpupdate
+force restart
+remove sccm
+repair wmi
+view event log

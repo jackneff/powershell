@@ -1,0 +1,70 @@
+<JOB ID=RIDDREG>
+	<SCRIPT LANGUAGE="VBScript" SRC="..\Utilities\log_class.vbs" />
+	<SCRIPT LANGUAGE="VBScript" SRC="..\Utilities\common_util.vbs" />
+	<SCRIPT>
+
+'==================================================
+'Define Variables & Constants
+'==================================================
+const HKEY_CLASSES_ROOT = &H80000000
+const HKEY_CURRENT_USER = &H80000001
+const HKEY_LOCAL_MACHINE = &H80000002
+const HKEY_USER = &H80000003
+
+Set lgDebug = new LogFile
+Set lgOutput = new LogFile
+Set lgExceptionList = new LogFile
+
+strOutputTextName = "1234567.CSV"
+
+strProfilePath = "\c$\Documents and Settings\"
+
+strCurPath = CreateObject("Scripting.FileSystemObject").GetAbsolutePathName(".") & "\"
+
+'==================================================
+'Function Definitions
+'==================================================
+function InitLogging()
+
+	lgDebug.bIncludeDateStamp = false
+
+	set lgDebug.oLogFile = lgDebug.LogInitalize("Debug1-" & strOutputTextName)
+	
+	if not IsEmpty(lgDebug.oLogError) then
+		bRunScript = False
+		strCompleteMessage = "Please close the Debug log file. Script Cancelled."
+	end if
+
+	set lgOutput.oLogFile = lgOutput.LogInitalize("Output1-" & strOutputTextName)
+
+	if not IsEmpty(lgOutput.oLogError) then
+		bRunScript = False
+		strCompleteMessage = "Please close the Output log files. Script Cancelled."
+	end if
+	
+	set lgExceptionList.oLogFile = lgExceptionList.LogInitalize("exceptioncomputerlist.txt")
+	
+	if not IsEmpty(lgExceptionList.oLogError) then
+		bRunScript = False
+		strCompleteMessage = "Please close exceptionlist.txt. Script Cancelled."
+	end if
+end function
+
+
+
+
+
+
+
+'==================================================
+'Main Code
+'==================================================
+
+InitLogging()
+
+lgDebug.Log "Here is some text"
+
+
+wscript.echo "Script Complete"
+	</SCRIPT>
+</JOB>

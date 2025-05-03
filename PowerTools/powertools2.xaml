@@ -1,0 +1,67 @@
+
+<Window 
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+  Width="885" Height="600" ResizeMode="CanMinimize" Title="PowerTools v2.0" WindowStartupLocation="CenterScreen">
+   <Grid>
+      <Grid.RowDefinitions>
+         <RowDefinition Height="70"/>
+         <RowDefinition Height="250"/>
+         <RowDefinition Height="280"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="220"/>
+         <ColumnDefinition Width="220"/>
+         <ColumnDefinition Width="220"/>
+         <ColumnDefinition Width="220"/>
+      </Grid.ColumnDefinitions>
+      <StackPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Background="#FF49415C" Orientation="Horizontal">
+         <TextBox Name="MainInput" Width="250" Height="28" HorizontalAlignment="Left" Margin="60,0,20,0" VerticalAlignment="Center" FontSize="14" Text="Computername" TextAlignment="Left"/>
+         <Button Name="Search" Width="70" Height="24" VerticalAlignment="Center" Content="Search"/>
+      </StackPanel>
+      <TextBlock Name="MainTitle" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center" FontSize="30" Foreground="White" Padding="0,0,30,0" Text="Power Tools v2.0" TextAlignment="Right"/>
+      <StackPanel Name="Mid1" Grid.Column="0" Grid.Row="1">
+         <Button Name="WhosLoggedOn" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,10,0,5" VerticalAlignment="Top" Content="Whos Logged On" Padding="2"/>
+         <Button Name="SystemInfo" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="System Info" Padding="2"/>
+         <Button Name="RemoteControl" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Remote Control" Padding="2"/>
+         <Button Name="RemoteDesktop" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Remote Desktop" Padding="2"/>
+         <Button Name="LogoffUser" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Logoff User" Padding="2"/>
+         <Button Name="Restart" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Restart" Padding="2"/>
+      </StackPanel>
+      <StackPanel Name="Mid2" Grid.Column="1" Grid.Row="1">
+         <Button Name="Ping" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,10,0,5" VerticalAlignment="Top" Content="Ping" Padding="2"/>
+         <Button Name="TraceRoute" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Trace Route" Padding="2"/>
+         <Button Name="IPSettings" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="IP Settings" Padding="2"/>
+         <Button Name="IPConfigRenew" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Renew IP" Padding="2"/>
+         <Button Name="GPUpdate" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Refresh Group Policy" Padding="2"/>
+         <Button Name="GPResult" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="View Applied Policies" Padding="2"/>
+      </StackPanel>
+      <StackPanel Name="Mid3" Grid.Column="2" Grid.Row="1">
+         <Button Name="Manage" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,10,0,5" VerticalAlignment="Top" Content="Manage" Padding="2"/>
+         <Button Name="Regedit" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Reg Edit" Padding="2"/>
+         <Button Name="EnableWinRM" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Enable WinRM" Padding="2"/>
+         <Button Name="WindowsLogs" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Windows Logs" Padding="2"/>
+         <Button Name="OpenCShare" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Open C$" Padding="2"/>
+         <Button Name="OpenShell" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Open Shell" Padding="2"/>
+      </StackPanel>
+      <StackPanel Name="Mid4" Grid.Column="3" Grid.Row="1">
+         <Button Name="Uptime" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,10,0,5" VerticalAlignment="Top" Content="System Uptime" Padding="2"/>
+         <Button Name="Applications" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Applications" Padding="2"/>
+         <Button Name="ConfMgrHealthCheck" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Check ConfMgr Health" Padding="2"/>
+         <Button Name="ConfMgrActions" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Trigger ConfMgr Actions" Padding="2"/>
+         <Button Name="ConfMgrRepair" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Repair ConfMgr" Padding="2"/>
+         <Button Name="RepairWMI" Width="200" Height="30" HorizontalAlignment="Center" Margin="0,5" VerticalAlignment="Top" Content="Repair WMI" Padding="2"/>
+      </StackPanel>
+      <StackPanel Name="TextBoxControls" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Top" Orientation="Horizontal">
+         <Label Name="Clear" Width="50" Foreground="Blue">
+            <Underline>Clear</Underline>
+         </Label>
+         <Label Name="Export" Width="50" Foreground="Blue">
+            <Underline>Export</Underline>
+         </Label>
+      </StackPanel>
+      <StackPanel Name="Bottom" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3">
+         <TextBox Width="855" Height="200" HorizontalAlignment="Left" Margin="10,25,0,10" BorderBrush="Gray" BorderThickness="2"/>
+      </StackPanel>
+   </Grid>
+</Window>
