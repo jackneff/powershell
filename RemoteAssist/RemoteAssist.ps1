@@ -10,3 +10,5 @@ function RemoteAssist {
     }
     
 }
+
+Set-Alias -Name ra -Value RemoteAssist

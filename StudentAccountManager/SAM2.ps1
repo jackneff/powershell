@@ -1,7 +1,7 @@
 ﻿
 #region Buid Form
 
-[xml]$XAML= @'
+[xml]$XAML = @'
 <Window
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -31,7 +31,7 @@ $UserInterFace = [Windows.Markup.XamlReader]::Load($Reader)
 
 $Combo_SelectSchool = $UserInterFace.FindName('SelectSchool')
 $Btn_DeselectAll = $UserInterFace.FindName('DeselectAll')
-$ListBox_Students  = $UserInterFace.FindName('ListAccounts')
+$ListBox_Students = $UserInterFace.FindName('ListAccounts')
 $Btn_ViewProfile = $UserInterFace.FindName('ViewProfile')
 $Btn_DeleteProfile = $UserInterFace.FindName('DeleteProfile')
 
@@ -42,51 +42,48 @@ $Btn_DeleteProfile = $UserInterFace.FindName('DeleteProfile')
 $Combo_SelectSchool.Add_SelectionChanged({
     $ListBox_Students.Items.Clear()
     Get-StudentAccounts | ForEach-Object { $ListBox_Students.Items.Add($_) | Out-Null }
-})
+  })
 
 $Btn_DeselectAll.Add_Click({ $ListBox_Students.SelectedItems.Clear() })
 
 $Btn_ViewProfile.Add_Click({
 
-})
+  })
 
 #endregion
 
 
-$SchoolNames = 'Brunswick','Catoctin','Frederick','Linganore','Middletown','Oakdale','Thomas_Johnson','Tuscarora','Urbana','Walkersville'
+$SchoolNames = 'SchoolA', 'SchoolB', 'SchoolC'
 
 
 function Main {
 
-    $SchoolNames | ForEach-Object { $Combo_SelectSchool.Items.Add("$_") | Out-Null }
-    $UserInterFace.ShowDialog() | Out-Null
+  $SchoolNames | ForEach-Object { $Combo_SelectSchool.Items.Add("$_") | Out-Null }
+  $UserInterFace.ShowDialog() | Out-Null
 
 }
 
-function Get-ADUserAcct ($School,$StudentCN) {
+function Get-ADUserAcct ($School, $StudentCN) {
 
 }
 
 Function Get-StudentAccounts ($SchoolName) {
     
-    $Root="OU"
-    $Searcher = New-Object System.DirectoryServices.DirectorySearcher
-    $Searcher.Filter = "(objectCategory=User)"
-    $Searcher.SearchRoot = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$Root")
-    $Searcher.SearchScope = "OneLevel"
-    "CN" | ForEach-Object { $Searcher.PropertiesToLoad.Add($_) }
-    $Results = $Searcher.FindAll()
+  $Root = "OU"
+  $Searcher = New-Object System.DirectoryServices.DirectorySearcher
+  $Searcher.Filter = "(objectCategory=User)"
+  $Searcher.SearchRoot = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$Root")
+  $Searcher.SearchScope = "OneLevel"
+  "CN" | ForEach-Object { $Searcher.PropertiesToLoad.Add($_) }
+  $Results = $Searcher.FindAll()
 
-    $ListBox_Students.Items.Clear()
+  $ListBox_Students.Items.Clear()
 
-    foreach ($Result in $Results) {
-        $ListBox_Students.Items.Add($Result.CN)
-    }
+  foreach ($Result in $Results) {
+    $ListBox_Students.Items.Add($Result.CN)
+  }
 }
 
-function View-Profile {
-
-}
-    
+ 
 
 Main

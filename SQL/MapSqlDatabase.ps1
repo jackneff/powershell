@@ -38,12 +38,12 @@ foreach ($table in $tables) {
     }
 }
 
-# # Create a map of the database table relationships
-# $relationshipMap = @{}
-# foreach ($relationship in $relationships) {
-#     $relationshipMap[$relationship.Table1] += $relationship
-# }
+# Create a map of the database table relationships
+$relationshipMap = @{}
+foreach ($relationship in $relationships) {
+    $relationshipMap[$relationship.Table1] += $relationship
+}
 
-# # Write the relationship map to the console
-# Write-Host $relationshipMap
+# Write the relationship map to the console
+Write-Host $relationshipMap
 

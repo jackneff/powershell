@@ -32,7 +32,7 @@ $Links = @{
 }
 
 $Links.Keys | ForEach-Object { 
-    $From = $_
-    $To = $Links[$_]
-    New-SymLink -Link $From $To -Type SymbolicLink
+    $Link = $_
+    $Target = $Links[$_]
+    New-SymLink -Link $Link -Target $Target -Type SymbolicLink
 }

@@ -1,7 +1,7 @@
 ﻿
 #region Buid Form
 
-[xml]$XAML= @'
+[xml]$XAML = @'
 <Window
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -31,7 +31,7 @@ $UserInterFace = [Windows.Markup.XamlReader]::Load($Reader)
 
 $Combo_SelectSchool = $UserInterFace.FindName('SelectSchool')
 $Btn_DeselectAll = $UserInterFace.FindName('DeselectAll')
-$ListBox_Students  = $UserInterFace.FindName('ListAccounts')
+$ListBox_Students = $UserInterFace.FindName('ListAccounts')
 $Btn_ViewProfile = $UserInterFace.FindName('ViewProfile')
 $Btn_DeleteProfile = $UserInterFace.FindName('DeleteProfile')
 
@@ -41,74 +41,74 @@ $Btn_DeleteProfile = $UserInterFace.FindName('DeleteProfile')
 
 $Combo_SelectSchool.Add_SelectionChanged({
     $ListBox_Students.Items.Clear()
-    $BaseOU ='OU'
+    $BaseOU = 'OU'
 
     $StudentAccts = Get-ADUser -SearchBase $BaseOU -SearchScope OneLevel -Filter * -Properties *
     $StudentAccts | ForEach-Object { $ListBox_Students.Items.Add($_.CN) | Out-Null }
-})
+  })
 
 $Btn_DeselectAll.Add_Click({ $ListBox_Students.SelectedItems.Clear() })
 
 $Btn_ViewProfile.Add_Click({
-    if ($ListBox_Students.Items.Count -gt 1){
-        [System.Windows.Forms.MessageBox]::Show("You may only view one profile at a time")
-    } else {
-        #TODO:  Show dialog for signle user.  Will need another XAML form.
+    if ($ListBox_Students.Items.Count -gt 1) {
+      [System.Windows.Forms.MessageBox]::Show("You may only view one profile at a time")
     }
-})
+    else {
+      #TODO:  Show dialog for signle user.  Will need another XAML form.
+    }
+  })
 
 $Btn_DeleteProfile.Add_Click({
 
     $Selected = $ListBox_Students.SelectedItems
     $CountSelected = $Selected.Count
-    $Choice = [System.Windows.Forms.MessageBox]::Show("You are about to delete $CountSelected accounts.  Do you wish to proceed?","Warning",
-    [System.Windows.Forms.MessageBoxButtons]::YesNoCancel,
-    [System.Windows.Forms.MessageBoxIcon]::Warning)
+    $Choice = [System.Windows.Forms.MessageBox]::Show("You are about to delete $CountSelected accounts.  Do you wish to proceed?", "Warning",
+      [System.Windows.Forms.MessageBoxButtons]::YesNoCancel,
+      [System.Windows.Forms.MessageBoxIcon]::Warning)
 
-    if ($Choice -eq "Yes"){
-        foreach ($Name in $Selected){
-            $StatusBar.Text = "Moving $Name home directory"
-            Move-Item -Path "\\$Severname\HOMEDIR$\$Name" -Destination "$Servername\Expired\Students" -Force
-            $StatusBar.Text = "Deleting $Name account"
-            Get-ADUser -Identity $Name | Remove-ADUser
-            $StatusBar.Text = ""
-        }
-        while($ListBox.SelectedItems -gt 0){
-            $ListBox.Items.Remove($ListBox.SelectedItems[0])
-        }
-        [System.Windows.Forms.MessageBox]::Show("Process Complete!")
+    if ($Choice -eq "Yes") {
+      foreach ($Name in $Selected) {
+        $StatusBar.Text = "Moving $Name home directory"
+        Move-Item -Path "\\$Severname\HOMEDIR$\$Name" -Destination "$Servername\Expired\Students" -Force
+        $StatusBar.Text = "Deleting $Name account"
+        Get-ADUser -Identity $Name | Remove-ADUser
+        $StatusBar.Text = ""
+      }
+      while ($ListBox.SelectedItems -gt 0) {
+        $ListBox.Items.Remove($ListBox.SelectedItems[0])
+      }
+      [System.Windows.Forms.MessageBox]::Show("Process Complete!")
     }
-})
+  })
 
 #endregion
 
 
-$SchoolNames = 'Brunswick','Catoctin','Frederick','Linganore','Middletown','Oakdale','Thomas_Johnson','Tuscarora','Urbana','Walkersville'
-
+$SchoolNames = 'SchoolA', 'SchoolB', 'SchoolC'
 
 function Main {
 
-    $SchoolNames | ForEach-Object { $Combo_SelectSchool.Items.Add("$_") | Out-Null }
-    $UserInterFace.ShowDialog() | Out-Null
+  $SchoolNames | ForEach-Object { $Combo_SelectSchool.Items.Add("$_") | Out-Null }
+  $UserInterFace.ShowDialog() | Out-Null
 
 }
 
 
 Function Get-StudentAccounts ($SchoolName) {
     
-    $Root="OU"
-    $Searcher = New-Object System.DirectoryServices.DirectorySearcher
-    $Searcher.Filter = "(objectCategory=User)"
-    $Searcher.SearchRoot = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$Root")
-    $Searcher.SearchScope = "OneLevel"
-    "CN" | ForEach-Object { $Searcher.PropertiesToLoad.Add($_) }
-    $Results = $Searcher.FindAll()
+  $Root = "OU"
+  $Searcher = New-Object System.DirectoryServices.DirectorySearcher
+  $Searcher.Filter = "(objectCategory=User)"
+  $Searcher.SearchRoot = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$Root")
+  $Searcher.SearchScope = "OneLevel"
+  "CN" | ForEach-Object { $Searcher.PropertiesToLoad.Add($_) }
+  $Results = $Searcher.FindAll()
 
-    $ListBox_Students.Items.Clear()
+  $ListBox_Students.Items.Clear()
 
-    foreach ($Result in $Results) {
-        $ListBox_Students.Items.Add($Result.CN)
-    }
+  foreach ($Result in $Results) {
+    $ListBox_Students.Items.Add($Result.CN)
+  }
 }
 
 function View-Profile {
