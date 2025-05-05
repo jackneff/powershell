@@ -1,14 +1,4 @@
-<#
-Hey SysAdmin -
-It's really hard remembering all those different network shares you need to touch every day right?  I know, well stop crying and fix it.  Just 3 easy steps! 
-1 - Set your top list of network unc paths below
-2 - Add this script to your powershell profile 
-3 - Run 'netloc' or 'NetworkLocations' command from any powershell to launch a menu to select and open a network location in a windows explorer session
-Don't say 'But what about shortcuts?' this is shorter than shortcuts (and cooler).  You know Windows ♥ backslashes! 
-Decades of typing backslashes - gone *poof*
-You're welcome. -JN
-#>
-
+# A jump list for common network shares you need to access often
 
 function NetworkLocations {
     # Locations should be root unc shares (not subfolders inside shares)

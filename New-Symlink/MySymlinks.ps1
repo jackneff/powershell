@@ -1,5 +1,5 @@
 
-Import-Module ".\New-SymbolicLink.ps1"
+Import-Module ".\New-SymLink.ps1"
 
 # Map your symbolic links
 # "from" = "to"
